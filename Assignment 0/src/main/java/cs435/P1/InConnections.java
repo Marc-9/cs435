@@ -50,25 +50,13 @@ public class InConnections {
         }
     }
 
-    public static class Edge implements Comparable<Edge>{
+    public static class Edge{
         String key;
         int count;
 
         Edge(Text key, int count){
             this.key = key.toString();
             this.count = count;
-        }
-        @Override
-        public int compareTo(Edge o){
-            if (this.count > o.count){
-                return 1;
-            }
-            else if(this.count < o.count){
-                return -1;
-            }
-            else{
-                return this.key.compareTo(o.key);
-            }
         }
     }
 
