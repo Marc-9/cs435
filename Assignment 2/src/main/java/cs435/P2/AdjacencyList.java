@@ -35,8 +35,8 @@ public class AdjacencyList {
 		job.setNumReduceTasks(0);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job, new Path("/friends"));
-		FileOutputFormat.setOutputPath(job, new Path("/path1"));
+		FileInputFormat.addInputPath(job, new Path("/friendsMini"));
+		FileOutputFormat.setOutputPath(job, new Path("/mini1"));
 		System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
 }

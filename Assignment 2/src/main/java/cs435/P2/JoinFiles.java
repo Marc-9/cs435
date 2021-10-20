@@ -156,20 +156,20 @@ public class JoinFiles {
 			Job job = Job.getInstance(conf, cfName);
 
 			job.setJarByClass(JoinFiles.class);
-			DistributedCache.addCacheFile(new Path("/path1/part-m-00000").toUri(), job.getConfiguration());
+			DistributedCache.addCacheFile(new Path("/mini1/part-m-00000").toUri(), job.getConfiguration());
 			job.setMapperClass(ReplicatedJoinMapper.class);
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
 			job.setNumReduceTasks(0);
 			String pathInput = "";
 			if(i == 2){
-				pathInput = "/path" + (i-1);
+				pathInput = "/mini" + (i-1);
 			}
 			else{
-				pathInput = "/pathDeDuped" + (i-1);
+				pathInput = "/miniDeDuped" + (i-1);
 			}
 			FileInputFormat.addInputPath(job, new Path(pathInput));
-			String pathOutput = "/path" + i;
+			String pathOutput = "/mini" + i;
 			FileOutputFormat.setOutputPath(job, new Path(pathOutput));
 
 			job.waitForCompletion(true);
@@ -187,10 +187,10 @@ public class JoinFiles {
 			job2.setOutputValueClass(IntWritable.class);
 
 			for(int j = 1; j <= i ; j++){
-				String path = "/path" + String.valueOf(j);
+				String path = "/mini" + String.valueOf(j);
 				MultipleInputs.addInputPath(job2, new Path(path), TextInputFormat.class);
 			}
-			FileOutputFormat.setOutputPath(job2, new Path("/pathDeDuped" + i));
+			FileOutputFormat.setOutputPath(job2, new Path("/miniDeDuped" + i));
 
 			job2.waitForCompletion(true);
 
@@ -209,10 +209,10 @@ public class JoinFiles {
 		job2.setOutputValueClass(IntWritable.class);
 
 		for(int j = 1; j <= 8 ; j++){
-			String path = "/path" + String.valueOf(j);
+			String path = "/mini" + String.valueOf(j);
 			MultipleInputs.addInputPath(job2, new Path(path), TextInputFormat.class);
 		}
-		FileOutputFormat.setOutputPath(job2, new Path("/finalList"));
+		FileOutputFormat.setOutputPath(job2, new Path("/minifinalList"));
 		job2.waitForCompletion(true);
 
 		Configuration conf = new Configuration();
@@ -227,8 +227,8 @@ public class JoinFiles {
 		job.setOutputKeyClass(IntWritable.class);
 		job.setOutputValueClass(IntWritable.class);
 
-		FileInputFormat.addInputPath(job, new Path("/finalList"));
-		FileOutputFormat.setOutputPath(job, new Path("/totCount"));
+		FileInputFormat.addInputPath(job, new Path("/minifinalList"));
+		FileOutputFormat.setOutputPath(job, new Path("/minitotCount"));
 
 		job.waitForCompletion(true);
 
